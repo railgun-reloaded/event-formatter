@@ -1,0 +1,23 @@
+{
+  "name": "event-formatter",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
+  },
+  "keywords": [],
+  "author": "RAILGUN Project Contributors",
+  "license": "MIT",
+  "description": "Event Formatter module for Railgun",
+  "devDependencies": {
+    "@railgun-reloaded/eslint-config": "^1.1.0",
+    "@railgun-reloaded/tsconfig": "^1.2.0",
+    "brittle": "^3.17.1",
+    "eslint": "^9.32.0",
+    "typescript": "^5.9.2"
+  }
+}
