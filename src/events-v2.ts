@@ -1,4 +1,4 @@
-import type { CommitmentPreImageV1, Nullifiers, TokenInfo } from './events-v1'
+import type { CommitmentPreImageV1, Nullifier, TokenInfo } from './events-v1'
 
 type CommitmentPreImageV2 = CommitmentPreImageV1
 
@@ -10,8 +10,8 @@ type ShieldCiphertextV2 = {
 type ShieldV2 = {
   treeNumber: number
   startPosition: number
-  commitments: CommitmentPreImageV2[]
-  shieldCiphertext: ShieldCiphertextV2[]
+  commitments: CommitmentPreImageV2
+  shieldCiphertext: ShieldCiphertextV2
 }
 
 type CommitmentCiphertextV2 = {
@@ -25,11 +25,11 @@ type CommitmentCiphertextV2 = {
 type TransactV2 = {
   treeNumber: number
   startPosition: number
-  hash: Uint8Array[]
-  ciphertext: CommitmentCiphertextV2[]
+  hash: Uint8Array
+  ciphertext: CommitmentCiphertextV2
 }
 
-type NullifiedV2 = Nullifiers
+type NullifiedV2 = Nullifier
 
 type UnshieldV2 = {
   to: Uint8Array

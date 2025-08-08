@@ -1,7 +1,7 @@
 import type { NullifiedV2, ShieldV2, TransactV2, UnshieldV2 } from './events-v2'
 
 type ShieldV2_1 = ShieldV2 & {
-  fees: bigint[]
+  fees: bigint
 }
 
 type TransactV2_1 = TransactV2
