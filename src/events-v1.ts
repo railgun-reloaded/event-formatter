@@ -49,7 +49,7 @@ type Nullifier = {
  * @param hex - Input hex string
  * @returns - Uint8Array representation of hex string
  */
-function hexToBytes (hex: string) {
+function hexToBytes (hex: string) : Uint8Array {
   if (hex.length % 2 !== 0) throw new Error('Hex String is not even padded')
   const bytes = new Uint8Array(hex.length / 2)
   for (let i = 0; i < bytes.length; i++) {
@@ -63,7 +63,7 @@ function hexToBytes (hex: string) {
  * @param hex - Input hex string
  * @returns Stripped hex string
  */
-function strip0x (hex: string) {
+function strip0x (hex: string) : string {
   if (hex.startsWith('0x')) { return hex.substring(2) }
   return hex
 }
@@ -73,7 +73,7 @@ function strip0x (hex: string) {
  * @param hex - Input hex string
  * @returns Padded hex string
  */
-function padEven (hex: string) {
+function padEven (hex: string) : string {
   if (hex.length % 2 === 0) return hex
   return `0${hex}`
 }
@@ -83,7 +83,7 @@ function padEven (hex: string) {
  * @param n - Input bigint/string number
  * @returns - Uint8Array representation of bigint
  */
-function bigIntToBytes (n: bigint) {
+function bigIntToBytes (n: bigint) : Uint8Array {
   // Convert bigint to hex and pad it to even
   const hex = padEven(n.toString(16))
   return hexToBytes(hex)
@@ -104,7 +104,7 @@ function formatCiphertext (input: Record<string, any>) : CommitmentCiphertextV1 
 
 /**
  * Format V1 Transact Events
- * @param args - CommitmentBatch Event arguments
+ * @param args - Decoded CommitmentBatch Event arguments
  * @returns Formatted CommitmentBatch
  */
 function formatCommitmentBatchEvent (args: Record<string, any>) : CommitmentBatchV1[] {
@@ -112,12 +112,17 @@ function formatCommitmentBatchEvent (args: Record<string, any>) : CommitmentBatc
   const startPosition = parseInt(args['startPosition'])
   const treeNumber = parseInt(args['treeNumber'])
   const hashes = args['hash']
-  return ciphertexts.map((ct: Record<string, any>, index: number) => ({
-    treeNumber,
-    treePosition: startPosition + index,
-    hash: bigIntToBytes(BigInt(hashes[index])),
-    ciphertext: formatCiphertext(ct)
-  }))
+
+  const results :CommitmentBatchV1[] = []
+  for (let i = 0; i < ciphertexts.length; ++i) {
+    results.push({
+      treeNumber,
+      treePosition: startPosition + i,
+      hash: bigIntToBytes(BigInt(hashes[i])),
+      ciphertext: formatCiphertext(ciphertexts[i])
+    })
+  }
+  return results
 }
 
 /**
@@ -125,7 +130,7 @@ function formatCommitmentBatchEvent (args: Record<string, any>) : CommitmentBatc
  * @param preimage - Input CommitmentPreimage
  * @returns - Formatted CommitmentPreimage
  */
-function formatCommitmentPreImage (preimage: Record<string, any>) {
+function formatCommitmentPreImage (preimage: Record<string, any>) : CommitmentPreImageV1 {
   return {
     npk: bigIntToBytes(BigInt(preimage['npk'])),
     token: {
@@ -139,7 +144,7 @@ function formatCommitmentPreImage (preimage: Record<string, any>) {
 
 /**
  * Format V1 Shield Events
- * @param args - GeneratedCommitmentBatch Event arguments
+ * @param args - Decoded GeneratedCommitmentBatch Event arguments
  * @returns Formatted GeneratedCommitmentBatch
  */
 function formatGeneratedCommitmentBatchEvent (args: Record<string, any>) : GeneratedCommitmentBatchV1[] {
@@ -148,27 +153,36 @@ function formatGeneratedCommitmentBatchEvent (args: Record<string, any>) : Gener
   const commitments = args['commitments']
   const encryptedRandoms = args['encryptedRandom']
 
-  return commitments.map((commitment: Record<string, any>, index: number) => ({
-    treeNumber,
-    treePosition: startPosition + index,
-    commitment: formatCommitmentPreImage(commitment),
-    encryptedRandom: encryptedRandoms[index].map((random: string) => bigIntToBytes(BigInt(random)))
-  }))
+  const results : GeneratedCommitmentBatchV1[] = []
+  for (let i = 0; i < commitments.length; ++i) {
+    results.push({
+      treeNumber,
+      treePosition: startPosition + i,
+      commitment: formatCommitmentPreImage(commitments[i]),
+      encryptedRandom: encryptedRandoms[i].map((random: string) => bigIntToBytes(BigInt(random)))
+    })
+  }
+  return results
 }
 
 /**
- * Format V1 Nullifiers
- * @param args - Nullifiers Event argument
+ * Format V1 Nullifiers Event
+ * @param args - Decoded Nullifiers Event argument
  * @returns Formatted Nullifiers
  */
 function formatNullifiedEvent (args: Record<string, any>) : Nullifier[] {
   const treeNumber = parseInt(args['treeNumber'])
   const nullifiers = args['nullifier']
-  return nullifiers.map((nullifier: string) => ({
-    treeNumber,
-    nullifier: bigIntToBytes(BigInt(nullifier))
-  }))
+
+  const results: Nullifier[] = []
+  for (let i = 0; i < nullifiers.length; ++i) {
+    results.push({
+      treeNumber,
+      nullifier: bigIntToBytes(BigInt(nullifiers[i]))
+    })
+  }
+  return results
 }
 
 export type { CommitmentBatchV1, GeneratedCommitmentBatchV1, TokenInfo, CommitmentPreImageV1, Nullifier }
-export { formatCommitmentBatchEvent, formatGeneratedCommitmentBatchEvent, formatNullifiedEvent, hexToBytes, bigIntToBytes, TokenType }
+export { formatCommitmentBatchEvent, formatGeneratedCommitmentBatchEvent, formatNullifiedEvent, hexToBytes, bigIntToBytes, strip0x, padEven, TokenType }

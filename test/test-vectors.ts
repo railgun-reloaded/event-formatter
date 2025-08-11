@@ -160,4 +160,209 @@ const TEST_VECTOR_EXPECTED_NULLIFIED_V1 = [
   }
 ]
 
-export { TEST_VECTOR_SHIELD_V1, TEST_VECTOR_EXPECTED_SHIELD_V1, TEST_VECTOR_TRANSACT_V1, TEST_VECTOR_EXPECTED_TRANSACT_V1, TEST_VECTOR_NULLIFIED_V1, TEST_VECTOR_EXPECTED_NULLIFIED_V1 }
+const TEST_VECTOR_SHIELD_V2 = {
+  treeNumber: '0',
+  startPosition: '9254',
+  commitments: [
+    {
+      npk: '0x09839bada365ba309164ceb159899d6667a37d52a70fbdcaa408eed1dc31c7e2',
+      token: { tokenType: '0', tokenAddress: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619', tokenSubID: '0' },
+      value: '14747966163034368944'
+    }],
+  shieldCiphertext: [
+    {
+      encryptedBundle: [
+        '0x26a086b140108ad41d8173501ad3cf6a49add21b5e08d8d1e2e5e263cedcc801',
+        '0x49253cfe0d2e8b6b4ae324efa25e268cb7b937e5786aea7acbf51c5348295df4',
+        '0x001e0ab13e7c00af84b75a2b8307713799d9c4c15032e28cdcb88bc06f64e33a'
+      ],
+      shieldKey: '0x9a6b1e18c7eeed0f10c37f35d9132c34c8f20dd64f3fa552ec8959348d414530'
+    }]
+}
+
+const TEST_VECTOR_EXPECTED_SHILED_V2 = [
+  {
+    treeNumber: 0,
+    treePosition: 9254,
+    commitment: {
+      npk: new Uint8Array([9, 131, 155, 173, 163, 101, 186, 48, 145, 100, 206, 177, 89, 137, 157, 102, 103, 163, 125, 82, 167, 15, 189, 202, 164, 8, 238, 209, 220, 49, 199, 226]),
+      token: {
+        tokenType: 0,
+        tokenAddress: new Uint8Array([124, 235, 35, 253, 107, 192, 173, 213, 158, 98, 172, 37, 87, 130, 112, 207, 241, 185, 246, 25]),
+        tokenSubID: 0
+      },
+      value: 14747966163034368944n
+    },
+    shieldCiphertext: {
+      encryptedBundle: [
+        new Uint8Array([38, 160, 134, 177, 64, 16, 138, 212, 29, 129, 115, 80, 26, 211, 207, 106, 73, 173, 210, 27, 94, 8, 216, 209, 226, 229, 226, 99, 206, 220, 200, 1]),
+        new Uint8Array([73, 37, 60, 254, 13, 46, 139, 107, 74, 227, 36, 239, 162, 94, 38, 140, 183, 185, 55, 229, 120, 106, 234, 122, 203, 245, 28, 83, 72, 41, 93, 244]),
+        new Uint8Array([0, 30, 10, 177, 62, 124, 0, 175, 132, 183, 90, 43, 131, 7, 113, 55, 153, 217, 196, 193, 80, 50, 226, 140, 220, 184, 139, 192, 111, 100, 227, 58])
+      ],
+      shieldKey: new Uint8Array([154, 107, 30, 24, 199, 238, 237, 15, 16, 195, 127, 53, 217, 19, 44, 52, 200, 242, 13, 214, 79, 63, 165, 82, 236, 137, 89, 52, 141, 65, 69, 48])
+    }
+  }
+]
+
+const TEST_VECTOR_TRANSACT_V2 = {
+  treeNumber: '0',
+  startPosition: '9252',
+  hash: [
+    '0x2aa00c0753c7e3edcf5512ea8d30cd0cc39edd4690e486daaf052ccfe9e48b78',
+    '0x232d978457acdaf30971f4f0286269bc91fab9f81ac22053b4e145e3044c4409'
+  ],
+  ciphertext: [
+    {
+      ciphertext: [
+        '0x743ac7672c01ecfb960cd0a988483772112270a7f83d0e2f33ead6ad23788a9b',
+        '0x1d5b37a6d81d5d2a2783cf1a25949eee0a8f624b74959bbf21224c9e997e7e07',
+        '0x5c2e3787e49fe66254fc60dc5f83332a99428472561a836f636382271b29522c',
+        '0x87e6400c2a16ac7cc019abd78b2705540dd5aa58b0b40e3d3542604670ef2592'
+      ],
+      blindedSenderViewingKey: '0x4fc6a3032b566732fe8391845f241858825ca1a5b10668d72086015c0f4bc1cb',
+      blindedReceiverViewingKey: '0x2503c97c05fe1af4f8b065d74f2763a2f299d9f2145d5fb6c12a4742811cac38',
+      annotationData: '0xb058abca3caac89cf4f84feb7dbe07cb3e548dbb1fcb71bbd752bd68dbd000244f53d5670bb52c92adc3dafe3ba990fbb41cf597ad217047ec1302eb9206eca0',
+      memo: '0x'
+    }, {
+      ciphertext: [
+        '0xacca4d3745cc369956e54e4b3105ef88c3a600ec8052823abdc37af8c4b5c29a',
+        '0x92f52f9d699556d55ba896c34e6d67862482a7b9b8bb53c97177a1aa343b6e3e',
+        '0x14534b0160573ed4b54add935237f11fdf8e2a85b77e7e6de46e52e16fe7a5a7',
+        '0x83852cf5b88ea41b36013b815f0bd9d3f78de250fb452906f998bb7181f43a04'
+      ],
+      blindedSenderViewingKey: '0x4647f79be1f9cf40845b1abb2691b8297587f47c019ac6c949fe5c1870c18f26',
+      blindedReceiverViewingKey: '0x4647f79be1f9cf40845b1abb2691b8297587f47c019ac6c949fe5c1870c18f26',
+      annotationData: '0x99eecc1b80add2e799508c9f10a932e700f6933c038483e10852c730f1d59c65b31483e42ad6c7e43f597105337fb7a16f5772288ed8f41dc759d9bdbf3e226a',
+      memo: '0x'
+    }]
+}
+
+const TEST_VECTOR_EXPECTED_TRANSACT_V2 = [
+  {
+    treeNumber: 0,
+    treePosition: 9252,
+    hash: new Uint8Array([42, 160, 12, 7, 83, 199, 227, 237, 207, 85, 18, 234, 141, 48, 205, 12, 195, 158, 221, 70, 144, 228, 134, 218, 175, 5, 44, 207, 233, 228, 139, 120]),
+    ciphertext: {
+      ciphertext: [
+        new Uint8Array([116, 58, 199, 103, 44, 1, 236, 251, 150, 12, 208, 169, 136, 72, 55, 114, 17, 34, 112, 167, 248, 61, 14, 47, 51, 234, 214, 173, 35, 120, 138, 155]),
+        new Uint8Array([29, 91, 55, 166, 216, 29, 93, 42, 39, 131, 207, 26, 37, 148, 158, 238, 10, 143, 98, 75, 116, 149, 155, 191, 33, 34, 76, 158, 153, 126, 126, 7]),
+        new Uint8Array([92, 46, 55, 135, 228, 159, 230, 98, 84, 252, 96, 220, 95, 131, 51, 42, 153, 66, 132, 114, 86, 26, 131, 111, 99, 99, 130, 39, 27, 41, 82, 44]),
+        new Uint8Array([135, 230, 64, 12, 42, 22, 172, 124, 192, 25, 171, 215, 139, 39, 5, 84, 13, 213, 170, 88, 176, 180, 14, 61, 53, 66, 96, 70, 112, 239, 37, 146])
+      ],
+      blindedSenderViewingKey: new Uint8Array([79, 198, 163, 3, 43, 86, 103, 50, 254, 131, 145, 132, 95, 36, 24, 88, 130, 92, 161, 165, 177, 6, 104, 215, 32, 134, 1, 92, 15, 75, 193, 203]),
+      blindedReceiverViewingKey: new Uint8Array([37, 3, 201, 124, 5, 254, 26, 244, 248, 176, 101, 215, 79, 39, 99, 162, 242, 153, 217, 242, 20, 93, 95, 182, 193, 42, 71, 66, 129, 28, 172, 56]),
+      annotationData: new Uint8Array([176, 88, 171, 202, 60, 170, 200, 156, 244, 248, 79, 235, 125, 190, 7, 203, 62, 84, 141, 187, 31, 203, 113, 187, 215, 82, 189, 104, 219, 208, 0, 36, 79, 83, 213, 103, 11, 181, 44, 146, 173, 195, 218, 254, 59, 169, 144, 251, 180, 28, 245, 151, 173, 33, 112, 71, 236, 19, 2, 235, 146, 6, 236, 160]),
+      memo: new Uint8Array([])
+    }
+  },
+  {
+    treeNumber: 0,
+    treePosition: 9253,
+    hash: new Uint8Array([35, 45, 151, 132, 87, 172, 218, 243, 9, 113, 244, 240, 40, 98, 105, 188, 145, 250, 185, 248, 26, 194, 32, 83, 180, 225, 69, 227, 4, 76, 68, 9]),
+    ciphertext: {
+      ciphertext: [
+        new Uint8Array([172, 202, 77, 55, 69, 204, 54, 153, 86, 229, 78, 75, 49, 5, 239, 136, 195, 166, 0, 236, 128, 82, 130, 58, 189, 195, 122, 248, 196, 181, 194, 154]),
+        new Uint8Array([146, 245, 47, 157, 105, 149, 86, 213, 91, 168, 150, 195, 78, 109, 103, 134, 36, 130, 167, 185, 184, 187, 83, 201, 113, 119, 161, 170, 52, 59, 110, 62]),
+        new Uint8Array([20, 83, 75, 1, 96, 87, 62, 212, 181, 74, 221, 147, 82, 55, 241, 31, 223, 142, 42, 133, 183, 126, 126, 109, 228, 110, 82, 225, 111, 231, 165, 167]),
+        new Uint8Array([131, 133, 44, 245, 184, 142, 164, 27, 54, 1, 59, 129, 95, 11, 217, 211, 247, 141, 226, 80, 251, 69, 41, 6, 249, 152, 187, 113, 129, 244, 58, 4])
+      ],
+      blindedSenderViewingKey: new Uint8Array([70, 71, 247, 155, 225, 249, 207, 64, 132, 91, 26, 187, 38, 145, 184, 41, 117, 135, 244, 124, 1, 154, 198, 201, 73, 254, 92, 24, 112, 193, 143, 38]),
+      blindedReceiverViewingKey: new Uint8Array([70, 71, 247, 155, 225, 249, 207, 64, 132, 91, 26, 187, 38, 145, 184, 41, 117, 135, 244, 124, 1, 154, 198, 201, 73, 254, 92, 24, 112, 193, 143, 38]),
+      annotationData: new Uint8Array([153, 238, 204, 27, 128, 173, 210, 231, 153, 80, 140, 159, 16, 169, 50, 231, 0, 246, 147, 60, 3, 132, 131, 225, 8, 82, 199, 48, 241, 213, 156, 101, 179, 20, 131, 228, 42, 214, 199, 228, 63, 89, 113, 5, 51, 127, 183, 161, 111, 87, 114, 40, 142, 216, 244, 29, 199, 89, 217, 189, 191, 62, 34, 106]),
+      memo: new Uint8Array([])
+    }
+  }
+]
+
+const TEST_VECTOR_NULLIFIED_V2 = {
+  treeNumber: '0',
+  nullifier: ['0x20d439fca76ee2a8e863967ad4559485c9c404b7083ed729a8c14f205895de11']
+}
+
+const TEST_VECTOR_EXPECTED_NULLIFIED_V2 = [
+  {
+    treeNumber: 0,
+    nullifier: new Uint8Array([32, 212, 57, 252, 167, 110, 226, 168, 232, 99, 150, 122, 212, 85, 148, 133, 201, 196, 4, 183, 8, 62, 215, 41, 168, 193, 79, 32, 88, 149, 222, 17])
+  }
+]
+
+const TEST_VECTOR_UNSHIELD_V2 = {
+  to: '0xc7FfA542736321A3dd69246d73987566a5486968',
+  token: { tokenType: '0', tokenAddress: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270', tokenSubID: '0' },
+  amount: '298360701129225000',
+  fee: '747771180775000'
+}
+
+const TEST_VECTOR_EXPECTED_UNSHIELD_V2 =
+  {
+    to: new Uint8Array([199, 255, 165, 66, 115, 99, 33, 163, 221, 105, 36, 109, 115, 152, 117, 102, 165, 72, 105, 104]),
+    token: {
+      tokenType: 0,
+      tokenAddress: new Uint8Array([13, 80, 11, 29, 142, 142, 243, 30, 33, 201, 157, 29, 185, 166, 68, 77, 58, 223, 18, 112]),
+      tokenSubID: 0
+    },
+    amount: 298360701129225000n,
+    fee: 747771180775000n
+  }
+
+const TEST_VECTOR_SHIELD_V2_1 = {
+  treeNumber: '0',
+  startPosition: '28288',
+  commitments: [
+    {
+      npk: '0x15d61604da4bc14e5a633add365bf73022afb2fad281d82aba94f0a73c1cee8c',
+      token: {
+        tokenType: '0',
+        tokenAddress: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270',
+        tokenSubID: '0'
+      },
+      value: '693154870582601871'
+    }],
+  shieldCiphertext: [
+    {
+      encryptedBundle: [
+        '0x243fda31546de94ca130c757cae61865fe2f64fdb18a534bc0ff03689df65ef0',
+        '0x68a2c16e283a15049c85e812f2cca2aeffe956a70254aa3e3a5f2400d9ad7c33',
+        '0x8133c8db7d13444eb413a8cd98b21334f250a7e62cd40cddaaeb7a754d9cad6c'
+      ],
+      shieldKey: '0xd5bb2ba0de62c43926d77d7a4c67d63db100d0ad19ffca4bfd73104485c3a402'
+    }
+  ],
+  fees: ['1737230252086721']
+}
+
+const TEST_VECTOR_EXPECTED_SHILED_V2_1 = [
+  {
+    treeNumber: 0,
+    treePosition: 28288,
+    commitment: {
+      npk: new Uint8Array([21, 214, 22, 4, 218, 75, 193, 78, 90, 99, 58, 221, 54, 91, 247, 48, 34, 175, 178, 250, 210, 129, 216, 42, 186, 148, 240, 167, 60, 28, 238, 140]),
+      token: {
+        tokenType: 0,
+        tokenAddress: new Uint8Array([13, 80, 11, 29, 142, 142, 243, 30, 33, 201, 157, 29, 185, 166, 68, 77, 58, 223, 18, 112]),
+        tokenSubID: 0
+      },
+      value: 693154870582601871n
+    },
+    shieldCiphertext: {
+      encryptedBundle: [
+        new Uint8Array([36, 63, 218, 49, 84, 109, 233, 76, 161, 48, 199, 87, 202, 230, 24, 101, 254, 47, 100, 253, 177, 138, 83, 75, 192, 255, 3, 104, 157, 246, 94, 240]),
+        new Uint8Array([104, 162, 193, 110, 40, 58, 21, 4, 156, 133, 232, 18, 242, 204, 162, 174, 255, 233, 86, 167, 2, 84, 170, 62, 58, 95, 36, 0, 217, 173, 124, 51]),
+        new Uint8Array([129, 51, 200, 219, 125, 19, 68, 78, 180, 19, 168, 205, 152, 178, 19, 52, 242, 80, 167, 230, 44, 212, 12, 221, 170, 235, 122, 117, 77, 156, 173, 108]),
+      ],
+      shieldKey: new Uint8Array([213, 187, 43, 160, 222, 98, 196, 57, 38, 215, 125, 122, 76, 103, 214, 61, 177, 0, 208, 173, 25, 255, 202, 75, 253, 115, 16, 68, 133, 195, 164, 2])
+    },
+    fees: 1737230252086721n
+  }
+]
+
+export {
+  TEST_VECTOR_SHIELD_V1, TEST_VECTOR_EXPECTED_SHIELD_V1,
+  TEST_VECTOR_TRANSACT_V1, TEST_VECTOR_EXPECTED_TRANSACT_V1,
+  TEST_VECTOR_NULLIFIED_V1, TEST_VECTOR_EXPECTED_NULLIFIED_V1,
+  TEST_VECTOR_SHIELD_V2, TEST_VECTOR_EXPECTED_SHILED_V2,
+  TEST_VECTOR_TRANSACT_V2, TEST_VECTOR_EXPECTED_TRANSACT_V2,
+  TEST_VECTOR_NULLIFIED_V2, TEST_VECTOR_EXPECTED_NULLIFIED_V2,
+  TEST_VECTOR_UNSHIELD_V2, TEST_VECTOR_EXPECTED_UNSHIELD_V2,
+  TEST_VECTOR_SHIELD_V2_1, TEST_VECTOR_EXPECTED_SHILED_V2_1
+}
