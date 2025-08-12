@@ -10,7 +10,11 @@
     "build": "tsc --build",
     "clean": "tsc --build --clean"
   },
-  "keywords": [],
+  "keywords": [
+    "railgun",
+    "railgun-events",
+    "railgun-reloaded"
+  ],
   "author": "RAILGUN Project Contributors",
   "license": "MIT",
   "description": "Event Formatter module for Railgun",

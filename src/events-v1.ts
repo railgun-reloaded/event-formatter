@@ -1,3 +1,5 @@
+import { bigIntToBytes, hexToBytes } from './bytes'
+
 type CommitmentCiphertextV1 = {
   ciphertext: [Uint8Array, Uint8Array, Uint8Array, Uint8Array]
   ephemeralKeys: [Uint8Array, Uint8Array]
@@ -42,51 +44,6 @@ type GeneratedCommitmentBatchV1 = {
 type Nullifier = {
   treeNumber: number;
   nullifier: Uint8Array
-}
-
-/**
- * Convert hex string without 0x prefix to Uint8Array
- * @param hex - Input hex string
- * @returns - Uint8Array representation of hex string
- */
-function hexToBytes (hex: string) : Uint8Array {
-  if (hex.length % 2 !== 0) throw new Error('Hex String is not even padded')
-  const bytes = new Uint8Array(hex.length / 2)
-  for (let i = 0; i < bytes.length; i++) {
-    bytes[i] = parseInt(hex.substring(i * 2, i * 2 + 2), 16)
-  }
-  return bytes
-}
-
-/**
- * Strip 0x from the hex string if present
- * @param hex - Input hex string
- * @returns Stripped hex string
- */
-function strip0x (hex: string) : string {
-  if (hex.startsWith('0x')) { return hex.substring(2) }
-  return hex
-}
-
-/**
- * Pad hex string to even length
- * @param hex - Input hex string
- * @returns Padded hex string
- */
-function padEven (hex: string) : string {
-  if (hex.length % 2 === 0) return hex
-  return `0${hex}`
-}
-
-/**
- * Convert bigint number to bytes
- * @param n - Input bigint/string number
- * @returns - Uint8Array representation of bigint
- */
-function bigIntToBytes (n: bigint) : Uint8Array {
-  // Convert bigint to hex and pad it to even
-  const hex = padEven(n.toString(16))
-  return hexToBytes(hex)
 }
 
 /**
@@ -135,7 +92,7 @@ function formatCommitmentPreImage (preimage: Record<string, any>) : CommitmentPr
     npk: bigIntToBytes(BigInt(preimage['npk'])),
     token: {
       tokenType: parseInt(preimage['token']['tokenType']),
-      tokenAddress: hexToBytes(padEven(strip0x(preimage['token']['tokenAddress']))),
+      tokenAddress: hexToBytes(preimage['token']['tokenAddress']),
       tokenSubID: parseInt(preimage['token']['tokenSubID'])
     },
     value: BigInt(preimage['value'])
@@ -185,4 +142,4 @@ function formatNullifiedEvent (args: Record<string, any>) : Nullifier[] {
 }
 
 export type { CommitmentBatchV1, GeneratedCommitmentBatchV1, TokenInfo, CommitmentPreImageV1, Nullifier }
-export { formatCommitmentBatchEvent, formatGeneratedCommitmentBatchEvent, formatNullifiedEvent, hexToBytes, bigIntToBytes, strip0x, padEven, TokenType }
+export { formatCommitmentBatchEvent, formatGeneratedCommitmentBatchEvent, formatNullifiedEvent, TokenType }

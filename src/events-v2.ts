@@ -1,5 +1,5 @@
+import { hexToBytes } from './bytes'
 import type { CommitmentPreImageV1, Nullifier, TokenInfo } from './events-v1'
-import { hexToBytes, padEven, strip0x } from './events-v1'
 
 type CommitmentPreImageV2 = CommitmentPreImageV1
 
@@ -46,10 +46,10 @@ type UnshieldV2 = {
  */
 function formatShieldCommitment (commitment: Record<string, any>) : CommitmentPreImageV2 {
   return {
-    npk: hexToBytes(padEven(strip0x(commitment['npk']))),
+    npk: hexToBytes(commitment['npk']),
     token: {
       tokenType: parseInt(commitment['token']['tokenType']),
-      tokenAddress: hexToBytes(padEven(strip0x(commitment['token']['tokenAddress']))),
+      tokenAddress: hexToBytes(commitment['token']['tokenAddress']),
       tokenSubID: parseInt(commitment['token']['tokenSubID'])
     },
     value: BigInt(commitment['value'])
@@ -74,8 +74,8 @@ function formatShieldEventV2 (args: Record<string, any>) : ShieldV2[] {
       treePosition: startPosition + i,
       commitment: formatShieldCommitment(commitments[i]),
       shieldCiphertext: {
-        shieldKey: hexToBytes(padEven(strip0x(shieldCiphertexts[i]['shieldKey']))),
-        encryptedBundle: shieldCiphertexts[i]['encryptedBundle'].map((data: string) => hexToBytes(padEven(strip0x(data))))
+        shieldKey: hexToBytes(shieldCiphertexts[i]['shieldKey']),
+        encryptedBundle: shieldCiphertexts[i]['encryptedBundle'].map((data: string) => hexToBytes(data))
       }
     })
   }
@@ -99,13 +99,13 @@ function formatTransactEventV2 (args: Record<string, any>) : TransactV2[] {
     results.push({
       treeNumber,
       treePosition: startPosition + i,
-      hash: hexToBytes(padEven(strip0x(hashes[i]))),
+      hash: hexToBytes(hashes[i]),
       ciphertext: {
-        ciphertext: ciphertext['ciphertext'].map((data: string) => hexToBytes(padEven(strip0x(data)))),
-        blindedSenderViewingKey: hexToBytes(padEven(strip0x(ciphertext['blindedSenderViewingKey']))),
-        blindedReceiverViewingKey: hexToBytes(padEven(strip0x(ciphertext['blindedReceiverViewingKey']))),
-        annotationData: hexToBytes(padEven(strip0x(ciphertext['annotationData']))),
-        memo: hexToBytes(padEven(strip0x(ciphertext['memo'])))
+        ciphertext: ciphertext['ciphertext'].map((data: string) => hexToBytes(data)),
+        blindedSenderViewingKey: hexToBytes(ciphertext['blindedSenderViewingKey']),
+        blindedReceiverViewingKey: hexToBytes(ciphertext['blindedReceiverViewingKey']),
+        annotationData: hexToBytes(ciphertext['annotationData']),
+        memo: hexToBytes(ciphertext['memo'])
       }
 
     })
@@ -126,7 +126,7 @@ function formatNullifiedEventV2 (args: Record<string, any>) : NullifiedV2[] {
   for (let i = 0; i < nullifiers.length; ++i) {
     results.push({
       treeNumber,
-      nullifier: hexToBytes(padEven(strip0x(nullifiers[i])))
+      nullifier: hexToBytes(nullifiers[i])
 
     })
   }
@@ -140,11 +140,11 @@ function formatNullifiedEventV2 (args: Record<string, any>) : NullifiedV2[] {
  */
 function formatUnshieldEventV2 (args: Record<string, any>) : UnshieldV2 {
   return {
-    to: hexToBytes(padEven(strip0x(args['to']))),
+    to: hexToBytes(args['to']),
     amount: BigInt(args['amount']),
     token: {
       tokenType: parseInt(args['token']['tokenType']),
-      tokenAddress: hexToBytes(padEven(strip0x(args['token']['tokenAddress']))),
+      tokenAddress: hexToBytes(args['token']['tokenAddress']),
       tokenSubID: parseInt(args['token']['tokenSubID'])
     },
     fee: BigInt(args['fee'])

@@ -18,4 +18,4 @@ npm install @railgun-reloaded/event-formatter
 ```
 
 ## License
-[MIT][LICENSE]
+[MIT](LICENSE)
