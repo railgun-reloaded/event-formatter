@@ -42,7 +42,7 @@ const TEST_VECTOR_EXPECTED_SHIELD_V1 = [
           160, 99
         ]
         ),
-        tokenSubID: 0
+        tokenSubID: new Uint8Array([0])
       },
       value: 399000000000000000n
     },
@@ -189,7 +189,7 @@ const TEST_VECTOR_EXPECTED_SHILED_V2 = [
       token: {
         tokenType: 0,
         tokenAddress: new Uint8Array([124, 235, 35, 253, 107, 192, 173, 213, 158, 98, 172, 37, 87, 130, 112, 207, 241, 185, 246, 25]),
-        tokenSubID: 0
+        tokenSubID: new Uint8Array([0])
       },
       value: 14747966163034368944n
     },
@@ -299,7 +299,7 @@ const TEST_VECTOR_EXPECTED_UNSHIELD_V2 =
     token: {
       tokenType: 0,
       tokenAddress: new Uint8Array([13, 80, 11, 29, 142, 142, 243, 30, 33, 201, 157, 29, 185, 166, 68, 77, 58, 223, 18, 112]),
-      tokenSubID: 0
+      tokenSubID: new Uint8Array([0])
     },
     amount: 298360701129225000n,
     fee: 747771180775000n
@@ -340,7 +340,7 @@ const TEST_VECTOR_EXPECTED_SHILED_V2_1 = [
       token: {
         tokenType: 0,
         tokenAddress: new Uint8Array([13, 80, 11, 29, 142, 142, 243, 30, 33, 201, 157, 29, 185, 166, 68, 77, 58, 223, 18, 112]),
-        tokenSubID: 0
+        tokenSubID: new Uint8Array([0])
       },
       value: 693154870582601871n
     },

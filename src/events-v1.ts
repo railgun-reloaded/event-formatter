@@ -23,7 +23,7 @@ enum TokenType {
 type TokenInfo = {
   tokenType: TokenType
   tokenAddress: Uint8Array
-  tokenSubID: number
+  tokenSubID: Uint8Array
 }
 
 type CommitmentPreImageV1 = {
@@ -93,7 +93,7 @@ function formatCommitmentPreImage (preimage: Record<string, any>) : CommitmentPr
     token: {
       tokenType: parseInt(preimage['token']['tokenType']),
       tokenAddress: hexToBytes(preimage['token']['tokenAddress']),
-      tokenSubID: parseInt(preimage['token']['tokenSubID'])
+      tokenSubID: bigIntToBytes(BigInt(preimage['token']['tokenSubID']))
     },
     value: BigInt(preimage['value'])
   }

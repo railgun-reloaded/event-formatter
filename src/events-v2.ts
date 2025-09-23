@@ -1,4 +1,4 @@
-import { hexToBytes } from './bytes'
+import { bigIntToBytes, hexToBytes } from './bytes'
 import type { CommitmentPreImageV1, Nullifier, TokenInfo } from './events-v1'
 
 type CommitmentPreImageV2 = CommitmentPreImageV1
@@ -50,7 +50,7 @@ function formatShieldCommitment (commitment: Record<string, any>) : CommitmentPr
     token: {
       tokenType: parseInt(commitment['token']['tokenType']),
       tokenAddress: hexToBytes(commitment['token']['tokenAddress']),
-      tokenSubID: parseInt(commitment['token']['tokenSubID'])
+      tokenSubID: bigIntToBytes(BigInt(commitment['token']['tokenSubID']))
     },
     value: BigInt(commitment['value'])
   }
@@ -145,7 +145,7 @@ function formatUnshieldEventV2 (args: Record<string, any>) : UnshieldV2 {
     token: {
       tokenType: parseInt(args['token']['tokenType']),
       tokenAddress: hexToBytes(args['token']['tokenAddress']),
-      tokenSubID: parseInt(args['token']['tokenSubID'])
+      tokenSubID: bigIntToBytes(BigInt(args['token']['tokenSubID']))
     },
     fee: BigInt(args['fee'])
   }
